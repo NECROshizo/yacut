@@ -11,7 +11,7 @@ from .models import URLMap
 @app.cli.command('load_links')
 @click.argument('file_csv', required=False)
 def load_opinions_command(file_csv=None):
-    """Функция загрузки мнений в базу данных."""
+    """Функция записи ссылок в указанный фаил"""
     if file_csv is None:
         date = dt.now().strftime('%Y-%m-%d')
         file_csv = f'database_{date}.csv'
@@ -31,14 +31,14 @@ def load_opinions_command(file_csv=None):
 
 
 @app.cli.command('drop_db')
-def drop():
+def drop_db():
     """Стирание базы данных"""
     db.drop_all()
     click.echo('База данных стерта')
 
 
 @app.cli.command('create_db')
-def drop():
+def create_db():
     """Создание базы данных"""
     db.create_all()
     click.echo('База данных создана')

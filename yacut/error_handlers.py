@@ -1,7 +1,7 @@
 from flask import jsonify, render_template
 from http import HTTPStatus as code
 
-from . import app
+from . import app, db
 
 
 class InvalidAPIUsage(Exception):
@@ -28,7 +28,7 @@ def page_not_found(error):
     return render_template('404.html'), code.NOT_FOUND
 
 
-# @app.errorhandler(500)
-# def internal_error(error):
-#     db.session.rollback()
-#     return render_template('500.html'), code.INTERNAL_SERVER_ERROR
+@app.errorhandler(500)
+def internal_error(error):
+    db.session.rollback()
+    return render_template('500.html'), code.INTERNAL_SERVER_ERROR
